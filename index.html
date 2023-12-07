@@ -1,21 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ໜ້າຫຼັກ</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <title>Countdown Timer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400&display=swap" rel="stylesheet">
+<style>
+body {
+    
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    
+    font-family: 'Noto Sans Lao', sans-serif;
+    }
+    
+
+
+  
+  h1 {
+    color: #333;
+    text-align: center;
+  }
+  
+  .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    
+  }
+  
+  .time {
+    margin: 0 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .time span {
+    font-size: 25px;
+    color: #888;
+  }
+  
+  .expired {
+    padding: 20px;
+    font-size: 24px;
+    background-color: #ff6347;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+</style>
 </head>
 <body>
-    <div>
-        <div class ="box">
-            <a href="index.html">ໜ້າຫຼັກ</a>
-            <a href="about.html">ກ່ຽວກັບ</a>
-            <a href="com.html">ສິນຄ້າ</a>
-        </div>
-    </div>
+  <div class="countdown-container">
+    <h1>ນັບຖອຍຫຼັງສູ່ປີ 2024</h1>
+    <div class="countdown" id="countdown"></div>
+  </div>
 
-    
+  <script>
+    const countdownDate = new Date('2023-12-31T00:00:00').getTime();
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('countdown').innerHTML = `
+        <div class="time">${days}<span>ມື້</span></div>
+        <div class="time">${hours}<span>ຊົ່ວໂມງ</span></div>
+        <div class="time">${minutes}<span>ນາທີ</span></div>
+        <div class="time">${seconds}<span>ວິນາທີ</span></div>
+      `;
+      
+
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById('countdown').innerHTML = '<div class="expired">Countdown is over!</div>';
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
